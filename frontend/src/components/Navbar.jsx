@@ -36,16 +36,24 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" className="text-white">
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/course">Course</Link>
+        <Link to="/course" className="text-white">
+          Course
+        </Link>
       </li>
       <li>
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact" className="text-white">
+          Contact
+        </Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/about" className="text-white">
+          About
+        </Link>
       </li>
     </>
   );
@@ -64,7 +72,7 @@ function Navbar() {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost lg:hidden"
+                className="btn btn-ghost lg:hidden text-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -84,13 +92,15 @@ function Navbar() {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="bg-gray-800 menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 {navItems}
               </ul>
             </div>
             <Link to="/">
-              <a className="text-2xl font-bold cursor-pointer">bookStore</a>
+              <a className="text-white text-2xl font-bold cursor-pointer">
+                bookStore
+              </a>
             </Link>
           </div>
           <div className="navbar-end space-x-3">
@@ -144,7 +154,7 @@ function Navbar() {
 
               {/* moon icon */}
               <svg
-                className="swap-on h-7 w-7 fill-current"  
+                className="swap-on h-7 w-7 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -153,10 +163,15 @@ function Navbar() {
               </svg>
             </label>
             <div className="">
-              <a className="bg-black text-white  px-3 py-2 rounded-md hover:bg-gray-600 duration-300 cursor-pointer" onClick={()=>document.getElementById("my_modal_3").showModal()}>
+              <a
+                className="bg-black text-white  px-3 py-2 rounded-md hover:bg-gray-600 duration-300 cursor-pointer"
+                onClick={() =>
+                  document.getElementById("my_modal_3").showModal()
+                }
+              >
                 Login
               </a>
-              <Login/>
+              <Login />
             </div>
           </div>
         </div>
@@ -165,6 +180,3 @@ function Navbar() {
   );
 }
 export default Navbar;
-
-
-
