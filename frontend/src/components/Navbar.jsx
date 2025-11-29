@@ -7,6 +7,7 @@ function Navbar() {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const element = document.documentElement;
+  // keep UI theme in sync with state/localStorage
   useEffect(() => {
     if (theme === "dark") {
       element.classList.add("dark");
@@ -17,7 +18,7 @@ function Navbar() {
       localStorage.setItem("theme", "light");
       document.body.classList.remove("dark");
     }
-  }, []);
+  }, [theme]);
 
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
@@ -36,22 +37,22 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <Link to="/" className="text-white">
+        <Link to="/" className=" hover:text-primary px-3 py-2 rounded-md transition-colors">
           Home
         </Link>
       </li>
       <li>
-        <Link to="/course" className="text-white">
+        <Link to="/course" className="hover:text-primary px-3 py-2 rounded-md transition-colors">
           Course
         </Link>
       </li>
       <li>
-        <Link to="/contact" className="text-white">
+        <Link to="/contact" className="hover:text-primary px-3 py-2 rounded-md transition-colors">
           Contact
         </Link>
       </li>
       <li>
-        <Link to="/about" className="text-white">
+        <Link to="/about" className="hover:text-primary px-3 py-2 rounded-md transition-colors">
           About
         </Link>
       </li>
@@ -60,19 +61,17 @@ function Navbar() {
   return (
     <>
       <div
-        className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 right-0 left-0 z-50 ${
-          sticky
-            ? "sticky-navbar shadow-md bg-gray-800 duration-300 transition-all ease-in-out"
-            : "bg-gray-900"
-        }`}
+        className={`max-w-screen-2xl container mx-auto md:px-20 px-4 fixed top-0 right-0 left-0 z-50 transition-all duration-300 ease-in-out ${{
+          true: "",
+        }}${sticky ? " sticky-navbar shadow-lg" : " bg-transparent"}`}
       >
         <div className="navbar">
-          <div className="navbar-start">
+          <div className="navbar-start flex items-center gap-4">
             <div className="dropdown">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost lg:hidden text-white"
+                className="btn btn-ghost lg:hidden"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -92,26 +91,24 @@ function Navbar() {
               </div>
               <ul
                 tabIndex="-1"
-                className="bg-gray-800 menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="bg-gray-400 menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 {navItems}
               </ul>
             </div>
-            <Link to="/">
-              <a className="text-white text-2xl font-bold cursor-pointer">
-                bookStore
-              </a>
+            <Link to="/" className="flex items-center gap-3 no-underline">
+              <span className="text-2xl font-extrabold cursor-pointer tracking-wide select-none">bookStore</span>
             </Link>
           </div>
-          <div className="navbar-end space-x-3">
+          <div className="navbar-end space-x-3 flex items-center">
             <div className="navbar-center hidden lg:flex">
-              <ul className="menu menu-horizontal px-1">{navItems}</ul>
+              <ul className="menu-horizontal px-1 flex items-center gap-1">{navItems}</ul>
             </div>
 
             {/* Search bar */}
 
-            <div className="hidden md:block">
-              <label className="input outline-none w-sm">
+            <div className="hidden md:flex items-center mx-2">
+              <label className="input input-bordered bg-gray-800/60 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2 w-60 focus-within:ring-2 ring-primary">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,13 +125,13 @@ function Navbar() {
                     <path d="m21 21-4.3-4.3"></path>
                   </g>
                 </svg>
-                <input type="search" required placeholder="Search" />
+                  <input type="search" required placeholder="Search books, authors..." className="bg-transparent outline-none placeholder:opacity-70 text-sm w-full" />
               </label>
             </div>
 
             {/* Theme Controller */}
 
-            <label className="swap swap-rotate">
+            <label className="swap swap-rotate cursor-pointer" aria-label="Toggle theme">
               {/* this hidden checkbox controls the state */}
               <input
                 type="checkbox"
@@ -162,15 +159,14 @@ function Navbar() {
                 <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
-            <div className="">
-              <a
-                className="bg-black text-white  px-3 py-2 rounded-md hover:bg-gray-600 duration-300 cursor-pointer"
-                onClick={() =>
-                  document.getElementById("my_modal_3").showModal()
-                }
+            <div className="flex items-center gap-2">
+              <button
+                className="btn btn-sm btn-primary px-3 py-2 rounded-md hover:shadow-lg transition-shadow"
+                onClick={() => document.getElementById("my_modal_3").showModal()}
+                aria-label="Open login modal"
               >
                 Login
-              </a>
+              </button>
               <Login />
             </div>
           </div>
